@@ -1,10 +1,13 @@
 import React from "react";
 import _ from "lodash";
 
+// BOOKS
 const Book = ({ book, onChangeBookShelf }) => {
+  // const defaultCoverImage
   const defaultCoverImage =
     "https://cdn141.picsart.com/311796011013201.jpg?type=webp&to=crop&r=256";
 
+  // changeBookShelf => param category
   const changeBookShelf = (e) => {
     let category = e.target.value;
     onChangeBookShelf(book.id, category);
@@ -27,11 +30,15 @@ const Book = ({ book, onChangeBookShelf }) => {
           <div className="book-shelf-changer">
             <select value={book.shelf} onChange={changeBookShelf}>
               <option value="move" disabled>
-                Move to...
+                Move on
               </option>
+
               <option value="currentlyReading">Currently Reading</option>
+
               <option value="wantToRead">Want to Read</option>
+
               <option value="read">Read</option>
+
               <option value="none">None</option>
             </select>
           </div>

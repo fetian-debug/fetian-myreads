@@ -1,8 +1,9 @@
 import axios from "axios";
 
+// API from Udacity
+
 const api = "https://reactnd-books-api.udacity.com";
 
-// Generate a unique token for storing your bookshelf data on the backend server.
 let token = localStorage.token;
 if (!token)
   token = localStorage.token = Math.random()
@@ -34,7 +35,6 @@ export const update = (id, shelf) =>
     body: JSON.stringify({ shelf }),
   }).then((res) => res.json());
 
-//used axios to cancel in progress requests when the user changes his request rapidly
 export const search = async (query, cancelToken) => {
   const { data } = await axios.post(
     `${api}/search`,

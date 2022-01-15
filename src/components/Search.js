@@ -4,17 +4,20 @@ import * as BooksAPI from "../BooksAPI";
 import Book from "./Book";
 import axios from "axios";
 
+// SEARCH
 class Search extends Component {
   state = {
     query: "",
     books: [],
   };
 
-  //used to cancel previous request when user changes the search value very quickly!
+  // To cancel request
   cancelRequest = null;
 
   getSearchedBooks = async (searchText) => {
+    // try search books using terms
     try {
+
       const searchedBooks = await BooksAPI.search(
         searchText,
         this.cancelRequest
@@ -26,16 +29,21 @@ class Search extends Component {
         return updatedBooks;
       }
     } catch (error) {
-      console.log(error);
+      // if catch error print in console
+      console.log('msg error: ',error)
     }
   };
 
+  // To update Shelves 
   updateShelvesInBooks(searchedBooks) {
     const { books } = this.props;
     const updatedBooks = searchedBooks.map((searchedBook) => {
       books.forEach((homeBook) => {
+        // if home Book == search Book
         if (homeBook.id === searchedBook.id) {
+          // add book in home book
           searchedBook.shelf = homeBook.shelf;
+
         }
       });
       if (!searchedBook.shelf) searchedBook.shelf = "none";
@@ -43,11 +51,11 @@ class Search extends Component {
     });
     return updatedBooks;
   }
-
+  // handel cancel request
   cancelOrInitializeRequest = () => {
     if (this.cancelRequest !== null) {
       this.cancelRequest.cancel(
-        "The request was cancelled due to another request after it"
+        "The request is cancelled."
       );
     }
     this.cancelRequest = axios.CancelToken.source();
@@ -70,6 +78,7 @@ class Search extends Component {
   };
 
   render() {
+    // const onChange BookShelf
     const { onChangeBookShelf } = this.props;
     const { books } = this.state;
     return (

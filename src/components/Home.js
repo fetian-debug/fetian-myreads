@@ -2,13 +2,20 @@ import React, { Component } from "react";
 import BookShelf from "./BookShelf";
 import { Link } from "react-router-dom";
 
+// HOME 
 class Home extends Component {
   getShelvesFromBooks = (books) => {
+    // create const currently reading to filter books => currently Reading
     const currentlyReading = books.filter(
       (book) => book.shelf === "currentlyReading"
     );
+    
+    // create const wantToRead to filter books => want to read
     const wantToRead = books.filter((book) => book.shelf === "wantToRead");
+    // create const read to filter books => read
     const read = books.filter((book) => book.shelf === "read");
+
+    // Objects Shelf Title
     return [
       {
         id: 1,
@@ -29,10 +36,12 @@ class Home extends Component {
   };
 
   render() {
+    // const shelves => param props books
     const shelves = this.getShelvesFromBooks(this.props.books);
     const { onChangeBookShelf } = this.props;
 
     return (
+      // home page
       <div className="list-books">
         <div className="list-books-title">
           <h1>Fetian Reads</h1>
@@ -58,5 +67,3 @@ class Home extends Component {
 
 export default Home;
 
-//{/* <BookShelf books={shelf[idx].books} title={shelf[idx].title} /> */}
-//onChangeCategory={onChangeCategory}
